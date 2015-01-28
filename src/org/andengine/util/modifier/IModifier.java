@@ -47,9 +47,13 @@ public interface IModifier<T> {
 
 	public float getSecondsElapsed();
 	public float getDuration();
-
+	
 	public float onUpdate(final float pSecondsElapsed, final T pItem);
-
+	
+	public void setModifierInternalName(String pName);
+	public String getModifierInternalName();
+	
+	
 	public void addModifierListener(final IModifierListener<T> pModifierListener);
 	public boolean removeModifierListener(final IModifierListener<T> pModifierListener);
 

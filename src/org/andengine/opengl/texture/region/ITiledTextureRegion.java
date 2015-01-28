@@ -21,12 +21,12 @@ public interface ITiledTextureRegion extends ITextureRegion {
 	public ITextureRegion getTextureRegion(final int pTileIndex);
 	public int getTileCount();
 
-	public float getTextureX(final int pTileIndex);
-	public float getTextureY(final int pTileIndex);
+	public int getTextureX(final int pTileIndex);
+	public int getTextureY(final int pTileIndex);
 
-	public void setTextureX(final int pTileIndex, final float pTextureX);
-	public void setTextureY(final int pTileIndex, final float pTextureY);
-	public void setTexturePosition(final int pTileIndex, final float pTextureX, final float pTextureY);
+	public void setTextureX(final int pTileIndex, final int pTextureX);
+	public void setTextureY(final int pTileIndex, final int pTextureY);
+	public void setTexturePosition(final int pTileIndex, final int pTextureX, final int pTextureY);
 
 	/**
 	 * Note: Takes {@link ITiledTextureRegion#getScale(int)} into account!
@@ -37,11 +37,11 @@ public interface ITiledTextureRegion extends ITextureRegion {
 	 */
 	public float getHeight(final int pTileIndex);
 
-	public void setTextureWidth(final int pTileIndex, final float pWidth);
-	public void setTextureHeight(final int pTileIndex, final float pHeight);
-	public void setTextureSize(final int pTileIndex, final float pWidth, final float pHeight);
+	public void setTextureWidth(final int pTileIndex, final int pWidth);
+	public void setTextureHeight(final int pTileIndex, final int pHeight);
+	public void setTextureSize(final int pTileIndex, final int pWidth, final int pHeight);
 
-	public void set(final int pTileIndex, final float pTextureX, final float pTextureY, final float pTextureWidth, final float pTextureHeight);
+	public void set(final int pTileIndex, final int pTextureX, final int pTextureY, final int pTextureWidth, final int pTextureHeight);
 
 	public float getU(final int pTileIndex);
 	public float getU2(final int pTileIndex);

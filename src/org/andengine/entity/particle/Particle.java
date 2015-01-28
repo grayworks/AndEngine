@@ -29,6 +29,8 @@ public class Particle<T extends IEntity> {
 	private float mExpireTime = Particle.EXPIRETIME_NEVER;
 	boolean mExpired;
 
+	private float mColorOffset;
+	
 	private T mEntity;
 
 	// ===========================================================
@@ -48,6 +50,14 @@ public class Particle<T extends IEntity> {
 		this.mPhysicsHandler.setEntity(pEntity);
 	}
 
+	public float getColorOffset() {
+		return mColorOffset;
+	}
+	
+	public void setColorOffset(float pColorOffset) {
+		mColorOffset = pColorOffset;
+	}
+	
 	public float getLifeTime() {
 		return this.mLifeTime;
 	}

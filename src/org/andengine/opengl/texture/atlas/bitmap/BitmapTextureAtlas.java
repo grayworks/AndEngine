@@ -10,14 +10,17 @@ import org.andengine.opengl.texture.atlas.bitmap.source.EmptyBitmapTextureAtlasS
 import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
 import org.andengine.opengl.texture.atlas.source.ITextureAtlasSource;
 import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.util.exception.NullBitmapException;
 import org.andengine.util.math.MathUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
+import android.util.Log;
 
 /**
  * (c) 2010 Nicolas Gramlich
@@ -36,6 +39,8 @@ public class BitmapTextureAtlas extends TextureAtlas<IBitmapTextureAtlasSource> 
 	// ===========================================================
 
 	private final BitmapTextureFormat mBitmapTextureFormat;
+	
+	private ArrayList<EmptyBitmap> mEmptyBitmaps = new ArrayList<EmptyBitmap>();
 
 	// ===========================================================
 	// Constructors
@@ -130,7 +135,40 @@ public class BitmapTextureAtlas extends TextureAtlas<IBitmapTextureAtlasSource> 
 	// ===========================================================
 	// Methods
 	// ===========================================================
-
+	
+	public void addEmptyRegion(int pX, int pY, int pWidth, int pHeight) {
+		mEmptyBitmaps.add(new EmptyBitmap(pX, pY, pWidth, pHeight, this.mBitmapTextureFormat.getBitmapConfig()));
+	}
+	
+	public void clearRegionBorders(int pVerticalX, int pHorizontalY) {
+		mEmptyBitmaps.add(new EmptyBitmap(0, pHorizontalY, 1, mWidth, this.mBitmapTextureFormat.getBitmapConfig())); //horizontal
+		mEmptyBitmaps.add(new EmptyBitmap(pVerticalX, 0, 1, mHeight, this.mBitmapTextureFormat.getBitmapConfig())); //vertical
+	}
+	
+	public void clearRegionBordersX(int pVerticalX) {
+		mEmptyBitmaps.add(new EmptyBitmap(pVerticalX, 0, mHeight, 1, this.mBitmapTextureFormat.getBitmapConfig())); //vertical
+	}
+	
+	public void clearRegionBordersY(int pHorizontalY) {
+		mEmptyBitmaps.add(new EmptyBitmap(0, pHorizontalY, 1, mWidth, this.mBitmapTextureFormat.getBitmapConfig())); //horizontal
+	}
+	
+	public void clearRegionBorders(ITextureRegion... pTextureRegion) {
+		for (int i = 0; i <pTextureRegion.length; i++) {
+			mEmptyBitmaps.add(new EmptyBitmap(pTextureRegion[i].getTextureX(), pTextureRegion[i].getTextureY(),
+					pTextureRegion[i].getWidth(), 1, this.mBitmapTextureFormat.getBitmapConfig())); //top - horizontal
+			
+			mEmptyBitmaps.add(new EmptyBitmap(pTextureRegion[i].getTextureX(), pTextureRegion[i].getTextureY() + pTextureRegion[i].getHeight(),
+					pTextureRegion[i].getWidth(), 1, this.mBitmapTextureFormat.getBitmapConfig())); //bottom - horizontal
+			
+			mEmptyBitmaps.add(new EmptyBitmap(pTextureRegion[i].getTextureX(), pTextureRegion[i].getTextureY(),
+					1, pTextureRegion[i].getHeight(), this.mBitmapTextureFormat.getBitmapConfig())); //left - vertical
+			
+			mEmptyBitmaps.add(new EmptyBitmap(pTextureRegion[i].getTextureX() + pTextureRegion[i].getWidth(), pTextureRegion[i].getTextureY(),
+					1, pTextureRegion[i].getHeight(), this.mBitmapTextureFormat.getBitmapConfig())); //right - vertical
+		}
+	}
+	
 	@Override
 	protected void writeTextureToHardware(final GLState pGLState) {
 		final PixelFormat pixelFormat = this.mBitmapTextureFormat.getPixelFormat();
@@ -186,9 +224,53 @@ public class BitmapTextureAtlas extends TextureAtlas<IBitmapTextureAtlasSource> 
 				}
 			}
 		}
+		
+		//-----
+		
+		if (mEmptyBitmaps.size() > 0) {
+			Log.d("BitmapTextureAtlas", "Clear transparent pixels");
+			for(int n = 0; n < mEmptyBitmaps.size(); n++) {
+				EmptyBitmap eBitmap = mEmptyBitmaps.get(n);
+				if(eBitmap.mBitmap == null) {
+					throw new IllegalArgumentException("EmptyBitmap: pX(" + eBitmap.mX + ") pY(" + eBitmap.mY +" returned a null Bitmap.");
+				}
+	
+				if(preMultipyAlpha) {
+					GLUtils.texSubImage2D(GLES20.GL_TEXTURE_2D, 0, eBitmap.mX, eBitmap.mY, eBitmap.mBitmap, glFormat, glType);
+				} else {
+					pGLState.glTexSubImage2D(GLES20.GL_TEXTURE_2D, 0, eBitmap.mX, eBitmap.mY, eBitmap.mBitmap, this.mPixelFormat);
+				}
+			}
+		}
 	}
 
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
+
+	private class EmptyBitmap {
+		int mX;
+		int mY;
+		int mWidth;
+		int mHeight;
+		Bitmap mBitmap;
+		
+		public EmptyBitmap(int pX, int pY, int pWidth, int pHeight, Config pBitmapConfig) {
+			mX = pX;
+			mY = pY;
+			
+			mWidth = pWidth;
+			mHeight = pHeight;
+
+			int[] blacklinesHackColors = new int[mWidth * mHeight];
+			
+			for (int y = 0; y < mHeight; y++) {
+				for (int x = 0; x < mWidth; x++) {
+					blacklinesHackColors[y * mWidth + x] = Color.TRANSPARENT;
+				}
+			}
+
+			mBitmap = Bitmap.createBitmap(blacklinesHackColors, mWidth, mHeight, pBitmapConfig);
+		}
+	}
 }

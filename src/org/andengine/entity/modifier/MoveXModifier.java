@@ -66,7 +66,20 @@ public class MoveXModifier extends SingleValueSpanEntityModifier {
 	protected void onSetValue(final IEntity pEntity, final float pPercentageDone, final float pX) {
 		pEntity.setX(pX);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_MoveXModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

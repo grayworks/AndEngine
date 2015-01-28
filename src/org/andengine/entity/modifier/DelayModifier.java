@@ -56,7 +56,20 @@ public class DelayModifier extends DurationEntityModifier {
 	protected void onManagedUpdate(final float pSecondsElapsed, final IEntity pEntity) {
 
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_DelayModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

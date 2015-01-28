@@ -84,7 +84,20 @@ public class ColorBackgroundModifier extends BaseTripleValueSpanModifier<IBackgr
 	protected void onSetValues(final IBackground pBackground, final float pPerctentageDone, final float pRed, final float pGreen, final float pBlue) {
 		pBackground.setColor(pRed, pGreen, pBlue);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_ColorBackgroundModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

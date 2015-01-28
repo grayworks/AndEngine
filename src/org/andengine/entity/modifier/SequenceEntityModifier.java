@@ -55,7 +55,19 @@ public class SequenceEntityModifier extends SequenceModifier<IEntity> implements
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
+	
+	String mInternalModifierName = "default_SequenceEntityModifier";
 
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

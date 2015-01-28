@@ -19,7 +19,7 @@ public class AlphaModifier extends SingleValueSpanEntityModifier {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -66,7 +66,20 @@ public class AlphaModifier extends SingleValueSpanEntityModifier {
 	protected void onSetValue(final IEntity pEntity, final float pPercentageDone, final float pAlpha) {
 		pEntity.setAlpha(pAlpha);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_AlphaModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

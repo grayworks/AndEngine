@@ -128,7 +128,20 @@ public class CardinalSplineMoveModifier extends DurationEntityModifier {
 
 		pEntity.setPosition(x, y);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_CardinalSplineMoveModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================
@@ -162,7 +175,7 @@ public class CardinalSplineMoveModifier extends DurationEntityModifier {
 
 		return ((pY0 * b1) + (pY1 * b2) + (pY2 * b3) + (pY3 * b4));
 	}
-
+	
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================

@@ -180,7 +180,20 @@ public class PathModifier extends EntityModifier {
 	public float onUpdate(final float pSecondsElapsed, final IEntity pEntity) {
 		return this.mSequenceModifier.onUpdate(pSecondsElapsed, pEntity);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_PathModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

@@ -65,7 +65,20 @@ public class SkewModifier extends DoubleValueSpanEntityModifier {
 	protected void onSetValues(final IEntity pEntity, final float pPercentageDone, final float pSkewX, final float pSkewY) {
 		pEntity.setSkew(pSkewX, pSkewY);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_SkewModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

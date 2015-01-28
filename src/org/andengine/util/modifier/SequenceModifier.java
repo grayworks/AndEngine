@@ -177,7 +177,19 @@ public class SequenceModifier<T> extends BaseModifier<T> implements IModifierLis
 			this.onModifierFinished(pItem);
 		}
 	}
+	
+	String mInternalModifierName = "default_SequenceModifier";
 
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

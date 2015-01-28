@@ -66,7 +66,20 @@ public class MoveYModifier extends SingleValueSpanEntityModifier {
 	protected void onSetValue(final IEntity pEntity, final float pPercentageDone, final float pY) {
 		pEntity.setY(pY);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_MoveYModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

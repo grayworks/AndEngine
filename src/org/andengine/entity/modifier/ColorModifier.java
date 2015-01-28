@@ -83,7 +83,20 @@ public class ColorModifier extends TripleValueSpanEntityModifier {
 	protected void onSetValues(final IEntity pEntity, final float pPerctentageDone, final float pRed, final float pGreen, final float pBlue) {
 		pEntity.setColor(pRed, pGreen, pBlue);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_ColorModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

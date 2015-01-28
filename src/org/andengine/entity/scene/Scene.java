@@ -62,6 +62,9 @@ public class Scene extends Entity {
 	private boolean mOnSceneTouchListenerBindingOnActionDownEnabled = false;
 	private final SparseArray<IOnSceneTouchListener> mOnSceneTouchListenerBindings = new SparseArray<IOnSceneTouchListener>();
 
+	private float mSpeedCoefficient = 1;
+	private float mSpeedAcceleration = 0.05f;
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -274,18 +277,20 @@ public class Scene extends Entity {
 
 	@Override
 	protected void onManagedUpdate(final float pSecondsElapsed) {
-		this.mSecondsElapsedTotal += pSecondsElapsed;
+		if (mSpeedCoefficient < 1) mSpeedCoefficient += mSpeedAcceleration;
+		float secondsElapsed = pSecondsElapsed * mSpeedCoefficient;
+		this.mSecondsElapsedTotal += secondsElapsed;
 
-		this.mRunnableHandler.onUpdate(pSecondsElapsed);
+		this.mRunnableHandler.onUpdate(secondsElapsed);
 
 		final Scene childScene = this.mChildScene;
 		if(childScene == null || !this.mChildSceneModalUpdate) {
-			this.mBackground.onUpdate(pSecondsElapsed);
-			super.onManagedUpdate(pSecondsElapsed);
+			this.mBackground.onUpdate(secondsElapsed);
+			super.onManagedUpdate(secondsElapsed);
 		}
 
 		if(childScene != null) {
-			childScene.onUpdate(pSecondsElapsed);
+			childScene.onUpdate(secondsElapsed);
 		}
 	}
 
@@ -430,6 +435,11 @@ public class Scene extends Entity {
 	@Override
 	public void setParent(final IEntity pEntity) {
 //		super.setParent(pEntity);
+	}
+	
+	public void setSpeed(float pSpeedCoefficient, float pSpeeAcceleration) {
+		mSpeedCoefficient = pSpeedCoefficient;
+		mSpeedAcceleration = pSpeeAcceleration;
 	}
 
 	// ===========================================================

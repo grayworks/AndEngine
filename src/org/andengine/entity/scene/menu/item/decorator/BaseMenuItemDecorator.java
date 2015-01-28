@@ -412,7 +412,11 @@ public abstract class BaseMenuItemDecorator implements IMenuItem {
 	public boolean unregisterEntityModifiers(final IEntityModifierMatcher pEntityModifierMatcher) {
 		return this.mMenuItem.unregisterEntityModifiers(pEntityModifierMatcher);
 	}
-
+	
+	@Override
+	public boolean unregisterEntityModifiersByName(String pName) {
+		return mMenuItem.unregisterEntityModifiersByName(pName);
+	}
 	@Override
 	public int getEntityModifierCount() {
 		return this.mMenuItem.getEntityModifierCount();

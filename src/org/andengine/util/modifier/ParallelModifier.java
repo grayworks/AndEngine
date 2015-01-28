@@ -137,7 +137,19 @@ public class ParallelModifier<T> extends BaseModifier<T> implements IModifierLis
 		this.mFinishedCached = true;
 		this.onModifierFinished(pItem);
 	}
+	
+	String mInternalModifierName = "default_ParallelModifier";
 
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

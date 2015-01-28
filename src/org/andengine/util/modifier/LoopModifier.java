@@ -133,6 +133,20 @@ public class LoopModifier<T> extends BaseModifier<T> implements IModifierListene
 
 		this.mModifier.reset();
 	}
+	
+	
+	String mInternalModifierName = "default_LoopModifier";
+
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 
 	// ===========================================================
 	// Methods
@@ -179,4 +193,5 @@ public class LoopModifier<T> extends BaseModifier<T> implements IModifierListene
 		public void onLoopStarted(final LoopModifier<T> pLoopModifier, final int pLoop, final int pLoopCount);
 		public void onLoopFinished(final LoopModifier<T> pLoopModifier, final int pLoop, final int pLoopCount);
 	}
+
 }

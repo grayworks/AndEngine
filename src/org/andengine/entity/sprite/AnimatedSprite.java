@@ -182,83 +182,43 @@ public class AnimatedSprite extends TiledSprite {
 	}
 
 	public void animate(final long pFrameDurationEach) {
-		this.animate(pFrameDurationEach, null);
-	}
-
-	public void animate(final long pFrameDurationEach, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurationEach, this.getTileCount());
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long pFrameDurationEach, final boolean pLoop) {
-		this.animate(pFrameDurationEach, pLoop, null);
-	}
-
-	public void animate(final long pFrameDurationEach, final boolean pLoop, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurationEach, this.getTileCount(), pLoop);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long pFrameDurationEach, final int pLoopCount) {
-		this.animate(pFrameDurationEach, pLoopCount, null);
-	}
-
-	public void animate(final long pFrameDurationEach, final int pLoopCount, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurationEach, this.getTileCount(), pLoopCount);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long[] pFrameDurations) {
-		this.animate(pFrameDurations, (IAnimationListener)null);
-	}
-
-	public void animate(final long[] pFrameDurations, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long[] pFrameDurations, final boolean pLoop) {
-		this.animate(pFrameDurations, pLoop, null);
-	}
-
-	public void animate(final long[] pFrameDurations, final boolean pLoop, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pLoop);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long[] pFrameDurations, final int pLoopCount) {
-		this.animate(pFrameDurations, pLoopCount, null);
-	}
-
-	public void animate(final long[] pFrameDurations, final int pLoopCount, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pLoopCount);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long[] pFrameDurations, final int pFirstTileIndex, final int pLastTileIndex, final boolean pLoop) {
-		this.animate(pFrameDurations, pFirstTileIndex, pLastTileIndex, pLoop, null);
-	}
-
-	public void animate(final long[] pFrameDurations, final int pFirstTileIndex, final int pLastTileIndex, final boolean pLoop, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pFirstTileIndex, pLastTileIndex, pLoop);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final long[] pFrameDurations, final int pFirstTileIndex, final int pLastTileIndex, final int pLoopCount) {
-		this.animate(pFrameDurations, pFirstTileIndex, pLastTileIndex, pLoopCount, null);
-	}
-
-	public void animate(final long[] pFrameDurations, final int pFirstTileIndex, final int pLastTileIndex, final int pLoopCount, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pFirstTileIndex, pLastTileIndex, pLoopCount);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	/**
@@ -266,22 +226,11 @@ public class AnimatedSprite extends TiledSprite {
 	 * 
 	 * @param pFrameDurations must have the same length as pFrames.
 	 * @param pFrames indices of the frames to animate.
+	 * @param pAnimationListener
 	 */
 	public void animate(final long[] pFrameDurations, final int[] pFrames) {
-		this.animate(pFrameDurations, pFrames, null);
-	}
-
-	/**
-	 * Animate specifics frames.
-	 * 
-	 * @param pFrameDurations must have the same length as pFrames.
-	 * @param pFrames indices of the frames to animate.
-	 * @param pAnimationListener
-	 */
-	public void animate(final long[] pFrameDurations, final int[] pFrames, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pFrames);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	/**
@@ -290,23 +239,11 @@ public class AnimatedSprite extends TiledSprite {
 	 * @param pFrameDurations must have the same length as pFrames.
 	 * @param pFrames indices of the frames to animate.
 	 * @param pLoop
+	 * @param pAnimationListener
 	 */
 	public void animate(final long[] pFrameDurations, final int[] pFrames, final boolean pLoop) {
-		this.animate(pFrameDurations, pFrames, pLoop, null);
-	}
-
-	/**
-	 * Animate specifics frames.
-	 * 
-	 * @param pFrameDurations must have the same length as pFrames.
-	 * @param pFrames indices of the frames to animate.
-	 * @param pLoop
-	 * @param pAnimationListener
-	 */
-	public void animate(final long[] pFrameDurations, final int[] pFrames, final boolean pLoop, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pFrames, pLoop);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	/**
@@ -315,42 +252,28 @@ public class AnimatedSprite extends TiledSprite {
 	 * @param pFrameDurations must have the same length as pFrames.
 	 * @param pFrames indices of the frames to animate.
 	 * @param pLoopCount
+	 * @param pAnimationListener
 	 */
 	public void animate(final long[] pFrameDurations, final int[] pFrames, final int pLoopCount) {
-		this.animate(pFrameDurations, pFrames, pLoopCount, null);
-	}
-
-	/**
-	 * Animate specifics frames.
-	 * 
-	 * @param pFrameDurations must have the same length as pFrames.
-	 * @param pFrames indices of the frames to animate.
-	 * @param pLoopCount
-	 * @param pAnimationListener
-	 */
-	public void animate(final long[] pFrameDurations, final int[] pFrames, final int pLoopCount, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pFrameDurations, pFrames, pLoopCount);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
 	public void animate(final IAnimationData pAnimationData) {
-		this.animate(pAnimationData, null);
-	}
-
-	public void animate(final IAnimationData pAnimationData, final IAnimationListener pAnimationListener) {
 		this.mAnimationData.set(pAnimationData);
-
-		this.initAnimation(pAnimationListener);
+		this.initAnimation();
 	}
 
-	private void initAnimation(final IAnimationListener pAnimationListener) {
+	private void initAnimation() {
 		this.mAnimationStartedFired = false;
-		this.mAnimationListener = pAnimationListener;
 		this.mRemainingLoopCount = this.mAnimationData.getLoopCount();
 
 		this.mAnimationProgress = 0;
 		this.mAnimationRunning = true;
+	}
+	
+	public void setAnimationListener(final IAnimationListener pAnimationListener) {
+		mAnimationListener = pAnimationListener;
 	}
 
 	// ===========================================================

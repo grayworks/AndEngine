@@ -301,6 +301,7 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 	public void registerEntityModifier(final IEntityModifier pEntityModifier);
 	public boolean unregisterEntityModifier(final IEntityModifier pEntityModifier);
 	public boolean unregisterEntityModifiers(final IEntityModifierMatcher pEntityModifierMatcher);
+	public boolean unregisterEntityModifiersByName(final String pName);
 	public int getEntityModifierCount();
 	public void clearEntityModifiers();
 

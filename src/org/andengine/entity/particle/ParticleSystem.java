@@ -1,6 +1,7 @@
 package org.andengine.entity.particle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.Entity;
@@ -11,6 +12,7 @@ import org.andengine.entity.particle.initializer.IParticleInitializer;
 import org.andengine.entity.particle.modifier.IParticleModifier;
 import org.andengine.opengl.util.GLState;
 import org.andengine.util.Constants;
+import org.andengine.util.color.Color;
 import org.andengine.util.math.MathUtils;
 
 import android.util.FloatMath;
@@ -45,11 +47,18 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 	private final float mRateMaximum;
 
 	private boolean mParticlesSpawnEnabled = true;
+	private boolean mBindColorFromSystem = false;
 
 	protected final int mParticlesMaximum;
 	protected int mParticlesAlive;
 	private float mParticlesDueToSpawn;
-
+	
+	private boolean mForceRecreateParticles;
+	
+	protected boolean mUseColorOffsets;
+	protected float[] mColorOffsets = new float[] {1};
+	
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -76,6 +85,23 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 	// Getter & Setter
 	// ===========================================================
 
+	public float[] getColorOffsets() {
+		return mColorOffsets;
+	}
+	
+	public void setColorOffsets(float...fs) {
+		mUseColorOffsets = true;
+		mColorOffsets = fs;
+	}
+	
+	public void setUseColorOffsets(boolean pUse) {
+		mUseColorOffsets = pUse;
+	}
+	
+	public void setForceRecreateParticles(boolean pRecreate) {
+		mForceRecreateParticles = pRecreate;
+	}
+	
 	public boolean isParticlesSpawnEnabled() {
 		return this.mParticlesSpawnEnabled;
 	}
@@ -92,6 +118,9 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 		return this.mParticleEmitter;
 	}
 
+	public int getParticlesCount() {
+		return mParticlesAlive;
+	}
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
@@ -189,7 +218,8 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 	private void spawnParticle() {
 		if(this.mParticlesAlive < this.mParticlesMaximum){
 			Particle<T> particle = this.mParticles[this.mParticlesAlive];
-
+			//Log.d("mParticlesAlive", "mParticlesAlive = " + mParticlesAlive + "/" + mParticles.length);
+			
 			/* New particle needs to be created. */
 			this.mParticleEmitter.getPositionOffset(ParticleSystem.POSITION_OFFSET_CONTAINER);
 
@@ -198,11 +228,23 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 
 			if(particle == null) {
 				particle = new Particle<T>();
+				particle.setColorOffset(mColorOffsets[new Random().nextInt(mColorOffsets.length)]);
 				this.mParticles[this.mParticlesAlive] = particle;
 				particle.setEntity(this.mEntityFactory.create(x, y));
 			} else {
-				particle.reset();
-				particle.getEntity().setPosition(x, y);
+				
+				if (mForceRecreateParticles) {
+					particle.getEntity().dispose();
+					particle.getEntity().detachSelf();
+					
+					particle = new Particle<T>();
+					particle.setColorOffset(mColorOffsets[new Random().nextInt(mColorOffsets.length)]);
+					this.mParticles[this.mParticlesAlive] = particle;
+					particle.setEntity(this.mEntityFactory.create(x, y));
+				} else {
+					particle.reset();
+					particle.getEntity().setPosition(x, y);
+				}
 			}
 
 			/* Apply particle initializers. */
@@ -214,6 +256,11 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 				for(int i = this.mParticleModifiers.size() - 1; i >= 0; i--) {
 					this.mParticleModifiers.get(i).onInitializeParticle(particle);
 				}
+			}
+			
+			if (mBindColorFromSystem) {
+				if (mUseColorOffsets) particle.getEntity().setColor(getCorrectedColor(particle.getColorOffset()));
+				else particle.getEntity().setColor(this.getColor());
 			}
 
 			this.mParticlesAlive++;
@@ -227,8 +274,48 @@ public class ParticleSystem<T extends IEntity> extends Entity {
 			return MathUtils.random(this.mRateMinimum, this.mRateMaximum);
 		}
 	}
+	
+	public void bindColorFromSystem(boolean pBind) {
+		mBindColorFromSystem = pBind;
+	}
+	
+	@Override
+	public void setColor(float pRed, float pGreen, float pBlue) {
+		if (mParticles != null) {
+			for (int i = 0; i < mParticles.length; i++) {
+				if (mParticles[i] != null) {
+					if (mUseColorOffsets) mParticles[i].getEntity().setColor(getCorrectedColor(mParticles[i].getColorOffset()));
+					else mParticles[i].getEntity().setColor(this.getColor());
+				}
+			}
+		}
+		
+		super.setColor(pRed, pGreen, pBlue);
+	}
 
+	private Color getCorrectedColor(float pColorOffset) {
+		float r, g, b;
+		
+		r = this.getRed();
+		g = this.getGreen();
+		b = this.getBlue();
+		
+		if (pColorOffset >= 0) {
+			r += (1 - r) * pColorOffset;
+			g += (1 - g) * pColorOffset;
+			b += (1 - b) * pColorOffset;
+		} else {
+			r *= -pColorOffset;
+			g *= -pColorOffset;
+			b *= -pColorOffset;
+		}
+		
+		return new Color(r, g, b);
+	}
+	
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
+	
+	
 }

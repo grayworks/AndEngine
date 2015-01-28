@@ -73,9 +73,10 @@ public class FPSLogger extends AverageFPSCounter {
 
 	protected void onLogFPS() {
 		if(BuildConfig.DEBUG) {
-			Debug.d(String.format("FPS: %.2f (MIN: %.0f ms | MAX: %.0f ms)",
+			Debug.d(String.format("FPS: %.2f (MIN: %.2f ms | MID: %.2f ms | MAX: %.2f ms)",
 				this.mFrames / this.mSecondsElapsed,
 				this.mShortestFrame * TimeConstants.MILLISECONDS_PER_SECOND,
+				(float) (this.mSecondsElapsed / this.mFrames * TimeConstants.MILLISECONDS_PER_SECOND),
 				this.mLongestFrame * TimeConstants.MILLISECONDS_PER_SECOND));
 		}
 	}

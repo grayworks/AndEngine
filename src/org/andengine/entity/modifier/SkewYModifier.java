@@ -65,7 +65,20 @@ public class SkewYModifier extends SingleValueSpanEntityModifier {
 	protected void onSetValue(final IEntity pEntity, final float pPercentageDone, final float pSkewY) {
 		pEntity.setSkewY(pSkewY);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_SkewYModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

@@ -51,7 +51,20 @@ public class RotationByModifier extends SingleValueChangeEntityModifier {
 	protected void onChangeValue(final float pSecondsElapsed, final IEntity pEntity, final float pRotation) {
 		pEntity.setRotation(pEntity.getRotation() + pRotation);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_RotationByModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

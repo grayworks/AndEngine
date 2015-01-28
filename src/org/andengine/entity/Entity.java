@@ -876,6 +876,22 @@ public class Entity implements IEntity {
 	}
 	
 	@Override
+	public boolean unregisterEntityModifiersByName(String pName) {
+		if(this.mEntityModifiers == null) {
+			return false;
+		} else {
+			boolean result = false;
+			for (int i = 0; i < this.mEntityModifiers.size(); i++) {
+				if (mEntityModifiers.get(i).getModifierInternalName().equals(pName)) {
+					mEntityModifiers.remove(i);
+					result = true;
+				}
+			}
+			return result;
+		}
+	}
+	
+	@Override
 	public int getEntityModifierCount() {
 		if(this.mEntityModifiers == null) {
 			return 0;
@@ -1153,20 +1169,43 @@ public class Entity implements IEntity {
 	public void setUserData(final Object pUserData) {
 		this.mUserData = pUserData;
 	}
+	
+	long secondDrawDelta;
 
 	@Override
-	public final void onDraw(final GLState pGLState, final Camera pCamera) {
+	public void onDraw(final GLState pGLState, final Camera pCamera) {
 		if(this.mVisible && !(this.mCullingEnabled && this.isCulled(pCamera))) {
+			long secondStart = System.nanoTime();
 			this.onManagedDraw(pGLState, pCamera);
+			secondDrawDelta = System.nanoTime() - secondStart;
 		}
 	}
+	
+	/**
+	 * @return Time in microseconds.
+	 */
+	public int getTimeDrawDelta() {
+		return (int) (secondDrawDelta / 1000);
+	}
+	
+	long secondUpdateDelta;
 
 	@Override
-	public final void onUpdate(final float pSecondsElapsed) {
+	public void onUpdate(final float pSecondsElapsed) {
 		if(!this.mIgnoreUpdate) {
+			long secondStart = System.nanoTime();
 			this.onManagedUpdate(pSecondsElapsed);
+			secondUpdateDelta = System.nanoTime() - secondStart;
 		}
 	}
+	
+	/**
+	 * @return Time in microseconds.
+	 */
+	public int getTimeUpdateDelta() {
+		return (int) (secondUpdateDelta / 1000);
+	}
+	
 
 	@Override
 	public void reset() {
@@ -1386,7 +1425,7 @@ public class Entity implements IEntity {
 		}
 		pGLState.popModelViewGLMatrix();
 	}
-
+	
 	protected void onManagedUpdate(final float pSecondsElapsed) {
 		if(this.mEntityModifiers != null) {
 			this.mEntityModifiers.onUpdate(pSecondsElapsed);
@@ -1403,7 +1442,7 @@ public class Entity implements IEntity {
 			}
 		}
 	}
-
+	
 	private void assertEntityHasNoParent(final IEntity pEntity) throws IllegalStateException {
 		if(pEntity.hasParent()) {
 			final String entityClassName = pEntity.getClass().getSimpleName();

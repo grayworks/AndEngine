@@ -111,6 +111,19 @@ public final class ArrayUtils {
 			i++;
 		}
 	}
+	
+	public static final int[] getReversed(final int[] pArray) {
+		int[] ra = new int[pArray.length];
+		int n = pArray.length - 1;
+		//Log.d("ARR", "n:" + n + ", pArray.length " + pArray.length);
+		for (int i = 0; i < pArray.length; i++) {
+			//Log.d("ARR", "i:" + i + ", pArray[i]" + pArray[i]);
+			ra[i] = pArray[n];
+			n--;
+		}
+		
+		return ra;
+	}
 
 	public static final void reverse(final long[] pArray) {
 		if(pArray == null) {
@@ -400,6 +413,32 @@ public final class ArrayUtils {
 	public static int idealObjectArraySize(final int pSize) {
 		return ArrayUtils.idealByteArraySize(pSize << 2) >> 2;
 	}
+	
+	/* Union of multiple arrays */
+    public static int[] unionArrays(int[]... arrays)
+    {
+        int maxSize = 0;
+        int counter = 0;
+
+        for(int[] array : arrays) maxSize += array.length;
+        int[] accumulator = new int[maxSize];
+
+        for(int[] array : arrays)
+            for(int i : array)
+               // if(!isDuplicated(accumulator, counter, i))
+                    accumulator[counter++] = i;
+
+        int[] result = new int[counter];
+        for(int i = 0; i < counter; i++) result[i] = accumulator[i];
+
+        return result;
+    }
+
+    public static boolean isDuplicated(int[] array, int counter, int value)
+    {
+        for(int i = 0; i < counter; i++) if(array[i] == value) return true;
+        return false;
+    }
 
 	// ===========================================================
 	// Inner and Anonymous Classes

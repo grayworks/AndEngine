@@ -42,6 +42,10 @@ public class SpriteParticleSystem extends ParticleSystem<Sprite> {
 		super(pX, pY, pEntityFactory, pParticleEmitter, pRateMinimum, pRateMaximum, pParticlesMaximum);
 	}
 
+	public Particle<Sprite>[] getParticlesSprite() {
+		return mParticles;
+	}
+
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================

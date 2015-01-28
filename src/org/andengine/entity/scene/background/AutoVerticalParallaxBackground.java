@@ -1,15 +1,15 @@
-package org.andengine.util.algorithm.path.astar;
+package org.andengine.entity.scene.background;
 
-import org.andengine.util.algorithm.path.IPathFinderMap;
+
 
 /**
  * (c) 2010 Nicolas Gramlich 
  * (c) 2011 Zynga Inc.
  * 
  * @author Nicolas Gramlich
- * @since 22:58:01 - 16.08.2010
+ * @since 19:44:31 - 19.07.2010
  */
-public class ManhattanHeuristic<T> implements IAStarHeuristic<T> {
+public class AutoVerticalParallaxBackground extends VerticalParallaxBackground {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -18,21 +18,34 @@ public class ManhattanHeuristic<T> implements IAStarHeuristic<T> {
 	// Fields
 	// ===========================================================
 
+	private float mParallaxChangePerSecond;
+
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
+	public AutoVerticalParallaxBackground(final float pRed, final float pGreen, final float pBlue, final float pParallaxChangePerSecond) {
+		super(pRed, pGreen, pBlue);
+		this.mParallaxChangePerSecond = pParallaxChangePerSecond;
+	}
+
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
+
+	public void setParallaxChangePerSecond(final float pParallaxChangePerSecond) {
+		this.mParallaxChangePerSecond = pParallaxChangePerSecond;
+	}
 
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
 	@Override
-	public float getExpectedRestCost(final IPathFinderMap<T> pPathFinderMap, final T pEntity, final int pFromX, final int pFromY, final int pToX, final int pToY) {
-		return Math.abs(pFromX - pToX) + Math.abs(pToX - pToY);
+	public void onUpdate(final float pSecondsElapsed) {
+		super.onUpdate(pSecondsElapsed);
+
+		this.mParallaxValue += this.mParallaxChangePerSecond * pSecondsElapsed;
 	}
 
 	// ===========================================================

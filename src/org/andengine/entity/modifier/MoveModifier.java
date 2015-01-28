@@ -66,7 +66,20 @@ public class MoveModifier extends DoubleValueSpanEntityModifier {
 	protected void onSetValues(final IEntity pEntity, final float pPercentageDone, final float pX, final float pY) {
 		pEntity.setPosition(pX, pY);
 	}
-
+	
+	public final static String DEFAULT_MODIFIER_NAME = "default_MoveModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
+	@Override
+	public void setModifierInternalName(String pName) {
+		mInternalModifierName = pName;
+	}
+	
+	@Override
+	public String getModifierInternalName() {
+		return mInternalModifierName;
+	}
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

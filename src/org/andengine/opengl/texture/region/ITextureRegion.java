@@ -17,27 +17,27 @@ public interface ITextureRegion {
 	// Methods
 	// ===========================================================
 
-	public float getTextureX();
-	public float getTextureY();
+	public int getTextureX();
+	public int getTextureY();
 
-	public void setTextureX(final float pTextureX);
-	public void setTextureY(final float pTextureY);
-	public void setTexturePosition(final float pTextureX, final float pTextureY);
+	public void setTextureX(final int pTextureX);
+	public void setTextureY(final int pTextureY);
+	public void setTexturePosition(final int pTextureX, final int pTextureY);
 
 	/**
 	 * Note: Takes {@link ITextureRegion#getScale()} into account!
 	 */
-	public float getWidth();
+	public int getWidth();
 	/**
 	 * Note: Takes {@link ITextureRegion#getScale()} into account!
 	 */
-	public float getHeight();
+	public int getHeight();
 
-	public void setTextureWidth(final float pTextureWidth);
-	public void setTextureHeight(final float pTextureHeight);
-	public void setTextureSize(final float pTextureWidth, final float pTextureHeight);
+	public void setTextureWidth(final int pTextureWidth);
+	public void setTextureHeight(final int pTextureHeight);
+	public void setTextureSize(final int pTextureWidth, final int pTextureHeight);
 
-	public void set(final float pTextureX, final float pTextureY, final float pTextureWidth, final float pTextureHeight);
+	public void set(final int pTextureX, final int pTextureY, final int pTextureWidth, final int pTextureHeight);
 
 	public float getU();
 	public float getU2();

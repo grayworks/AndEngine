@@ -91,7 +91,7 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	private final RunnableHandler mUpdateThreadRunnableHandler = new RunnableHandler();
 
 	private final EngineOptions mEngineOptions;
-	protected final Camera mCamera;
+	protected Camera mCamera;
 
 	private ITouchController mTouchController;
 
@@ -319,6 +319,10 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		this.mDrawHandlers.clear();
 	}
 
+	public void setCamera(Camera pCamera) {
+		mCamera = pCamera;
+	}
+	
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
