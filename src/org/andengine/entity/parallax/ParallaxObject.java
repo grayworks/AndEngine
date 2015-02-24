@@ -66,6 +66,38 @@ public class ParallaxObject extends Entity {
 	// ===========================================================
 
 	@Override
+	public void setAlpha(final float pAlpha) {
+		for(int i = 0; i < this.mParallaxEntityCount; i++) {
+			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) 
+				mParallaxEntities.get(i).mAreaShapes[i].setAlpha(pAlpha);
+		}
+		
+		super.setAlpha(pAlpha);
+	}
+	
+	@Override
+	public void setRed(final float pRed) {
+		if(this.mColor.setRedChecking(pRed)) {
+			this.onUpdateColor();
+		}
+	}
+
+	
+	@Override
+	public void setGreen(final float pGreen) {
+		if(this.mColor.setGreenChecking(pGreen)) {
+			this.onUpdateColor();
+		}
+	}
+
+	@Override
+	public void setBlue(final float pBlue) {
+		if(this.mColor.setBlueChecking(pBlue)) {
+			this.onUpdateColor();
+		}
+	}
+
+	@Override
 	public void setColor(Color pColor) {
 		for(int i = 0; i < this.mParallaxEntityCount; i++) {
 			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) {
@@ -77,21 +109,23 @@ public class ParallaxObject extends Entity {
 	}
 	
 	@Override
-	public void setColor(float pRed, float pGreen, float pBlue, float pAlpha) {
-		for(int i = 0; i < this.mParallaxEntityCount; i++) {
-			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) mParallaxEntities.get(i).mAreaShapes[i].setColor(pRed, pGreen, pBlue, pAlpha);
-		}
-		
-		super.setColor(pRed, pGreen, pBlue, pAlpha);
-	}
-	
-	@Override
 	public void setColor(float pRed, float pGreen, float pBlue) {
 		for(int i = 0; i < this.mParallaxEntityCount; i++) {
-			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) mParallaxEntities.get(i).mAreaShapes[i].setColor(pRed, pGreen, pBlue);
+			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) 
+				mParallaxEntities.get(i).mAreaShapes[i].setColor(pRed, pGreen, pBlue);
 		}
 		
 		super.setColor(pRed, pGreen, pBlue);
+	}
+	
+	@Override
+	public void setColor(float pRed, float pGreen, float pBlue, float pAlpha) {
+		for(int i = 0; i < this.mParallaxEntityCount; i++) {
+			for (int j = 0; j < mParallaxEntities.get(i).mAreaShapes.length; j++) 
+				mParallaxEntities.get(i).mAreaShapes[i].setColor(pRed, pGreen, pBlue, pAlpha);
+		}
+		
+		super.setColor(pRed, pGreen, pBlue, pAlpha);
 	}
 	
 	public void attachParallaxEntity(final ParallaxObjectEntity pParallaxEntity) {
