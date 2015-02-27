@@ -60,8 +60,9 @@ public class LoopEntityModifier extends LoopModifier<IEntity> implements IEntity
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 	
-	String mInternalModifierName = "default_LoopEntityModifier";
-
+	public final static String DEFAULT_MODIFIER_NAME = "default_LoopEntityModifier";
+	private String mInternalModifierName = DEFAULT_MODIFIER_NAME;
+	
 	@Override
 	public void setModifierInternalName(String pName) {
 		mInternalModifierName = pName;
