@@ -1,9 +1,11 @@
 # System:
-Thumbs.db
 .DS_Store
-*.swp
-*~
-Desktop.ini
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # Version Control Systems:
 .svn
@@ -11,8 +13,10 @@ CVS
 .hg
 .bzr
 
-# Android:
+# Local configuration file (sdk path, etc)
 local.properties
+
+# Android:
 proguard/**
 target/**
 bin/**
@@ -24,10 +28,26 @@ gdbserver
 
 # Eclipse:
 .settings
+.classpath
+.project
 
-# IntelliJ / Android Studio:
-idea/workspace.xml
-idea/tasks.xml
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
 
-# Crashlytics
-res/values/com_crashlytics_export_strings.xml
+# Signing files
+.signing/
+
+# Android Studio
+/*/*/build
+/*/build
+build
+.idea
+.gradle
+gradle
+/*/out
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
