@@ -205,8 +205,7 @@ public class AnimatedSequence extends Entity {
 							}
 							
 							if (mSequenceListener != null) mSequenceListener.onAnimationSpriteChanged(sprites[oldSprite], sprites[mCurrentSprite]);
-							
-							// Установка последнего кадра для следующей анимации (если она обращена) и первого кадра если нет.
+
 							if (mReversedAnimation[mCurrentOrderPosition]) {
 								sprites[mCurrentSprite].setCurrentTileIndex(sprites[mCurrentSprite].getTileCount()-1);
 							} else {
