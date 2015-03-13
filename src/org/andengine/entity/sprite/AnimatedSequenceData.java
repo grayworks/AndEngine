@@ -8,17 +8,17 @@ public class AnimatedSequenceData {
 	boolean isFlippedHorizontal;
 	int mRepeatCont;
 	int mFrameToPlay;
-	
-	
+
+
 	/**
 	 * Single Frame Mode
-	 * 
-	 * @param pFrameDuration - ¬рем€ отображени€ кадра (скорость)
-	 * @param pAnimationOrder - »ндекс анимации (соответствует массиву текстур)
-	 * @param pReversed - ѕроигрывать в обратном пор€дке
-	 * @param pFlippedHorizontal - ќтразить по горизонтали
-	 * @param pRepeatCont -  оличество повторов (количество показов кадра в режиме одного кадра)
-	 * @param pFrameNumber - номер кадра дл€ отображени€ (требуетс€ указание количества повторов с расчетом длины). -1 дл€ полного цикла кадров в анимации.
+	 *
+	 * @param pFrameDuration
+	 * @param pAnimationOrder
+	 * @param pReversed
+	 * @param pFlippedHorizontal
+	 * @param pRepeatCont
+	 * @param pFrameNumber
 	 */
 	public AnimatedSequenceData(long pFrameDuration, int pAnimationOrder, boolean pReversed, boolean pFlippedHorizontal, int pRepeatCont, int pFrameNumber) {
 		mFrameDuration = pFrameDuration;
@@ -28,15 +28,15 @@ public class AnimatedSequenceData {
 		mRepeatCont = pRepeatCont;
 		mFrameToPlay = pFrameNumber;
 	}
-	
+
 	/**
 	 * Normal Mode
-	 * 
-	 * @param pFrameDuration - ¬рем€ отображени€ кадра (скорость)
-	 * @param pAnimationOrder - »ндекс анимации (соответствует массиву текстур)
-	 * @param pReversed - ѕроигрывать в обратном пор€дке
-	 * @param pFlippedHorizontal - ќтразить по горизонтали
-	 * @param pRepeatCont -  оличество повторов
+	 *
+	 * @param pFrameDuration
+	 * @param pAnimationOrder
+	 * @param pReversed
+	 * @param pFlippedHorizontal
+	 * @param pRepeatCont
 	 */
 	public AnimatedSequenceData(long pFrameDuration, int pAnimationOrder, boolean pReversed, boolean pFlippedHorizontal, int pRepeatCont) {
 		mFrameDuration = pFrameDuration;
@@ -50,10 +50,10 @@ public class AnimatedSequenceData {
 	/**
 	 * Normal Mode
 	 * 
-	 * @param pFrameDuration - ¬рем€ отображени€ кадра (скорость)
-	 * @param pAnimationOrder - »ндекс анимации (соответствует массиву текстур)
-	 * @param pReversed - ѕроигрывать в обратном пор€дке
-	 * @param pFlippedHorizontal - ќтразить по горизонтали
+	 * @param pFrameDuration
+	 * @param pAnimationOrder
+	 * @param pReversed
+	 * @param pFlippedHorizontal
 	 */
 	public AnimatedSequenceData(long pFrameDuration, int pAnimationOrder, boolean pReversed, boolean pFlippedHorizontal) {
 		mFrameDuration = pFrameDuration;
@@ -67,9 +67,9 @@ public class AnimatedSequenceData {
 	/**
 	 * Normal Mode
 	 * 
-	 * @param pFrameDuration - ¬рем€ отображени€ кадра (скорость)
-	 * @param pAnimationOrder - »ндекс анимации (соответствует массиву текстур)
-	 * @param pReversed - ѕроигрывать в обратном пор€дке
+	 * @param pFrameDuration
+	 * @param pAnimationOrder
+	 * @param pReversed
 	 */
 	public AnimatedSequenceData(long pFrameDuration, int pAnimationOrder, boolean pReversed) {
 		mFrameDuration = pFrameDuration;
